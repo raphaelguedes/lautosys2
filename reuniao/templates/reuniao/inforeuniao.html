@@ -1,0 +1,957 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'auto Cargo</title>
+<link rel="shortcut icon" href="{% static 'favicon/favicon-16x16.png' %}"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<!--<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
+
+<link href='https://fonts.googleapis.com/css?family=Gugi' rel='stylesheet'>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.table-row{
+cursor:pointer;
+}
+
+
+table {
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+td {
+  background-color: #F2EEEE;
+}
+
+
+
+ul {
+    padding:0;
+    list-style-type:none
+ }
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-yellow w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right " style="font-family: 'arial';" > L'auto Cargo</span>
+  <!-- fa fa-user-secret   -->
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar">
+<div style="width:250px;">
+  <center>
+      <img src="{% static 'images/logolauto.png' %}" class="" style="width:150px;margin-top:20px;" alt="FOTO_CV">
+  </center>
+</div>
+<div style="width:250px;padding-top:10px">
+  <center>
+    <span>Welcome, <strong>{{request.user.username}}</strong></span><br>
+  </center>
+</div>
+<div style="width:250px;padding-top:3px">
+  <center>
+  <a href="/lauto/usuario" class="w3-bar-item w3-button "><i class="fa fa-user-circle"></i></a>
+  <a href="/lauto/logout_controller" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i></a>
+  </center>
+</div>
+<hr>
+    <h5>Menu</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="/lauto" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none;"><i class=" fa fa-home"></i>  Home</a>  
+
+    <a data-toggle="collapse" data-target="#demo" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><i class=" fa fa-bookmark"></i>  Reunião <i class="fa fa-angle-down" style="float: right;"></i></a>
+            <div id="demo" class="collapse">  
+            <a href="/reuniao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none; "><div style="margin-left: 10px">Minhas reuniões</div></a>
+            <a href="/reuniao/acao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><div style="margin-left: 10px">Minhas ações</div> </a>  
+            <a href="/reuniao/faq_reuniao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><div style="margin-left: 10px">FAQ</div> </a> 
+            </div>
+    <a href="http://201.20.83.85:83/HELPDESK/index.php" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none;"><i class=" fa fa-bullhorn"></i>  Helpdesk</a>
+<br><br>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:280px;margin-top:43px;margin-right:30px">
+
+  <!-- Header -->
+
+  <header class="w3-container" style="padding-top:22px">
+       <div class="panel panel-default">
+      <div class="panel-heading">
+        <div>
+          <h5><b><i class="fa fa-group"></i> {{ informacao.titulo }}</b></h5>
+        </div>
+
+      </div>
+      <div class="panel-body">
+        <p>{{ informacao.assunto }}</p>
+          <div style=" float: left;"> 
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 2 %}
+            <button data-toggle="modal" data-target="#myModal4" ><i class="fa fa-edit"></i> Editar reunião</button>
+            {% else %}
+            <button disabled data-toggle="modal" data-target="#myModal4" style="color: grey" ><i class="fa fa-edit"></i> Editar reunião</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+         </div>
+      </div>
+
+
+
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-comments"></i> Pauta</div>
+      <div class="panel-body">{{ informacao.pauta }}</div>
+    </div>
+        <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-address-book"></i> Participantes</div>
+      <div class="panel-body">
+       
+       <div> 
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 2 %}
+                <button data-toggle="modal" data-target="#myModal" style=" float:left;margin-left : 10px" ><i class="fa fa-user-plus"></i> Adicionar participante</button>
+            {% else %}
+            <button disabled data-toggle="modal" data-target="#myModal" style="color: grey; float:left;margin-left : 10px" ><i class="fa fa-user-plus"></i> Adicionar participante</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+
+         </div>
+         <div>
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 2 %}
+                <button data-toggle="modal" data-target="#myModal5" style=" float:left;margin-left : 10px" ><i class="fa fa-id-card-o"></i> Gerenciar participantes</button>
+            {% else %}
+            <button disabled data-toggle="modal" data-target="#myModal5" style="color: grey;float:left;margin-left: 10px" ><i class="fa fa-id-card-o"></i> Gerenciar participantes</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+         </div>
+         <div style="clear:left"></div>
+         <div class="w3-container" style="margin-top: 10px">
+        <div>
+          <b>Dirigentes:</b>
+        {% if lista7 %}
+          {% for Acesso_r in lista7 %}
+            {{ Acesso_r.participante.first_name }} {{ Acesso_r.participante.last_name }} ;  
+          {% endfor %}
+        {% else %}
+           <p>Sem participantes.</p>
+        {% endif %}
+        </div>
+        <div>
+          <b>Membros:</b>
+        {% if lista %}
+          {% for Acesso_r in lista %}
+            {{ Acesso_r.participante.first_name }} {{ Acesso_r.participante.last_name }} ;  
+          {% endfor %}
+        {% else %}
+           <p>Sem participantes.</p>
+        {% endif %}
+        </div>
+         <div>
+          <b>Observadores:</b>
+        {% if lista8 %}
+          {% for Acesso_r in lista8 %}
+            {{ Acesso_r.participante.first_name }} {{ Acesso_r.participante.last_name }} ;  
+          {% endfor %}
+        {% else %}
+           <p>Sem participantes.</p>
+        {% endif %}
+
+        </div>
+</div>
+      </div>
+    </div>
+
+    <div style="clear:left"></div>
+
+            <div class="panel panel-default">
+      <div class="panel-heading"><i class=" fa fa-list"></i> Planos de ações</i></div>
+      <div class="panel-body">
+          <div style=" float: left; margin-right: 10px"> 
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 2 %}
+                <button data-toggle="modal" data-target="#myModal6" ><i class="fa fa-plus"></i> Novo tópico</button>
+            {% else %}
+            <button disabled data-toggle="modal" data-target="#myModal6" style="color: grey" ><i class="fa fa-plus"></i> Novo plano de ações</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+         </div>
+
+        
+       <div style=" float: left; margin-right: 10px"> 
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 2 %}
+                <button data-toggle="modal" data-target="#myModal2" ><i class="fa fa-calendar"></i> Adicionar ação</button>
+            {% else %}
+            <button disabled data-toggle="modal" data-target="#myModal2" style="color: grey" ><i class="fa fa-calendar"></i> Adicionar ação</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+         </div>
+
+          <div style=" float: left; margin-right:10px"> 
+            {% if tipoacesso %}
+            {% for Acesso_r in tipoacesso %}
+            {% if Acesso_r.tipo_acesso.id == 3 %}
+                <button disabled data-toggle="modal" data-target="#myModal3" style="color: grey"  ><i class="fa fa-refresh"></i> Atualizar minhas ações</button>
+            {% else %}
+            <button data-toggle="modal" data-target="#myModal3"><i class="fa fa-refresh"></i> Atualizar minhas ações</button>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+            {% endif %}
+         </div>
+
+        <!-- <form style="float: left;" method="get" action="/lauto/acao"><button type="submit"><i class="fa fa-history"></i> Minhas ações</button></form> -->
+
+         <form style="float: right;" method="POST" action="/reuniao/some_view">
+          {% csrf_token %}
+          <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+          <button type="submit"><i class="fa fa-download"></i> Exportar CSV</button>
+        </form>
+<div style="clear:left"></div>
+<div style="margin: 10px">
+<input class="form-control" id="myInput" type="text" placeholder="Filtrar...">
+</div>
+<div style="margin-top: 10px">
+<div class="panel-group" id="accordion">
+            {% if informacao5 %}
+            {% for Planoacao in informacao5 %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ Planoacao.id }}">{{ Planoacao.nome }}</a>
+        </h4>
+      </div>
+      <div id="collapse{{ Planoacao.id }}" class="panel-collapse collapse">
+        <div class="panel-body">
+          <div>
+  <div class="table-responsive">
+  <table class=" table-bordered table-hover" >
+    <thead>
+      <tr>
+    <th>Etapa</th>
+    <th>Responsável</th>
+    <th>Previsão de início/Prazo</th>
+    <th>Status</th>
+    <th></th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+ {% if informacao2 %}
+    {% for Acao in informacao2 %}
+            {% if Acao.planoacao.nome == Planoacao.nome %}
+             
+
+        {% if Acao.data_conclusao_acao > Acao.prazo %}
+  <tr class="table-row table-warning" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+    <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Concluido com atraso</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+  </tr>
+
+  {% elif Acao.data_conclusao_acao <= Acao.prazo %}
+  <tr class="table-row table-success" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+    <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Concluido</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+  </tr>
+     {% elif Acao.data_start_acao >= Acao.data_i and now > Acao.prazo %}
+  <tr class="table-row table-danger" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+    <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Em andamento com atraso</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+
+  </tr>
+     {% elif Acao.data_start_acao >= Acao.data_i %}
+  <tr class="table-row table-info" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+    <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Em andamento</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+  </tr>
+    {% elif now > Acao.prazo %}
+  <tr class="table-row table-danger" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+    <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Atrasado</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+  </tr>
+      {% else %}
+  <tr class="table-row table-active" data-href="{% url 'infoacao' Acao.id %}">
+    <td>{{ Acao.objetivo }}</td>
+    <td>{{ Acao.responsavel.first_name }} {{ Acao.responsavel.last_name }}</td>
+   <td>{{ Acao.data_i|date:'d/m/Y' }}<br>{{ Acao.prazo|date:'d/m/Y' }}</td>
+    <td>Não iniciada</td>
+    {% if Acao.id in listcoment %}
+    <td><i class="fa fa-commenting-o"></i></td>
+     {% else %}
+    <td><i class="fa fa-comment-o"></i></td>
+    {% endif %}
+  </tr>
+      {% endif %}
+      {% else %}
+      {% endif %}
+  {% endfor %}
+{% else %}
+    <p>Sem açoes resgistradas.</p>
+{% endif %}
+    </tbody>
+  </table>
+  </div>
+  
+
+</div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+            {% else %}
+            Sem planos de ação.
+            {% endif %}
+  </div>
+</div>
+      </div>
+    </div>
+
+    <!--<div class="panel panel-default">
+      <div class="panel-heading"><i class=" fa fa-pie-chart"></i> Diagrama das ações</i></div>
+      <div class="panel-body" style="width: 100%">
+        <script>
+window.onload = function () {
+
+//Better to construct options first and then pass it as a parameter
+var options = {
+  animationEnabled: true,
+  theme: "light2", //"light1", "dark1", "dark2"
+  title:{
+    text: "Division of Products Sold in 2nd Quarter"             
+  },
+  axisY:{
+    interval: 10,
+    suffix: "%"
+  },
+  toolTip:{
+    shared: true
+  },
+  data:[{
+    type: "stackedBar100",
+    toolTipContent: "{label}<br><b>{name}:</b> {y} (#percent%)",
+    showInLegend: true, 
+    name: "Não iniciado",
+    color: "#DCDCDC",
+    dataPoints: [
+      { y: 550, label: "Water Filter" },
+      { y: 450, label: "Modern Chair" },
+      { y: 70, label: "VOIP Phone" },
+      { y: 200, label: "Microwave" },
+      { y: 70, label: "Water Filter" },
+      { y: 324, label: "Expresso Machine" },
+      { y: 300, label: "Lobby Chair" }
+    ]
+  },
+  {
+    type: "stackedBar100",
+    toolTipContent: "<b>{name}:</b> {y} (#percent%)",
+    showInLegend: true, 
+    name: "Em andamento",
+    color: " #4da6ff ",
+    dataPoints: [
+      { y: 450, label: "Water Filter" },
+      { y: 550, label: "Modern Chair" },
+      { y: 270, label: "VOIP Phone" },
+      { y: 400, label: "Microwave" },
+      { y: 270, label: "Water Filter" },
+      { y: 524, label: "Expresso Machine" },
+      { y: 500, label: "Lobby Chair" }
+    ]
+  }, 
+  {
+    type: "stackedBar100",
+    toolTipContent: "<b>{name}:</b> {y} (#percent%)",
+    showInLegend: true, 
+    name: "Concluído",
+    color: " #66ff66   ",
+    dataPoints: [
+      { y: 450, label: "Water Filter" },
+      { y: 550, label: "Modern Chair" },
+      { y: 270, label: "VOIP Phone" },
+      { y: 400, label: "Microwave" },
+      { y: 270, label: "Water Filter" },
+      { y: 524, label: "Expresso Machine" },
+      { y: 500, label: "Lobby Chair" }
+    ]
+  }, 
+  {
+    type: "stackedBar100",
+    toolTipContent: "<b>{name}:</b> {y} (#percent%)",
+    showInLegend: true, 
+    name: "Atrasado",
+    color: " #ff3333",
+    dataPoints: [
+      { y: 350, label: "Water Filter" },
+      { y: 660, label: "Modern Chair" },
+      { y: 265, label: "VOIP Phone" },
+      { y: 271, label: "Microwave" },
+      { y: 125, label: "Water Filter" },
+      { y: 360, label: "Expresso Machine" },
+      { y: 340, label: "Lobby Chair" }
+    ]
+  }]
+};
+
+$("#chartContainer").CanvasJSChart(options);
+}
+</script>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+    </div>
+      </div> -->
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="/reuniao/add_participante_controller">
+          {% csrf_token %}
+        <div class="modal-header">
+           <h4><i class="fa fa-user-plus"></i> Adicionar participante</h4>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+              <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+                <div style="margin: 20px"> Selecione o participante:
+<br>
+    
+          {% if lista2 %}
+           <select required name="selectparticipante" class="js-example-basic-single" style="width: 200px">
+               <option value="">Nenhum</option>
+                {% for User in lista2 %}
+                      <option value="{{ User.id }}">{{User.first_name}} {{User.last_name}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>No polls are available.</p>
+      {% endif %}
+
+        
+
+      </div>
+                    <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+                <div style="margin: 20px"> Selecione a posição:
+<br>
+    
+          {% if lista9 %}
+           <select required name="selecttipo" class="js-example-basic-single" style="width: 200px">
+               <option value="">Nenhum</option>
+                {% for Tipo_acesso in lista9 %}
+                      <option value="{{ Tipo_acesso.id }}" {% if Tipo_acesso.id == 1 %} selected{% endif %} >{{Tipo_acesso.tipo_acesso}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>No polls are available.</p>
+      {% endif %}
+
+        
+
+      </div>
+        </div>
+        <div class="modal-footer">
+          <input style="color: black" type="submit" value="Adicionar">
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal3 -->
+  <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="/reuniao/atualizar_acao_controller">
+          {% csrf_token %}
+        <div class="modal-header">
+           <h4><i class="fa fa-refresh"></i> Atualizar minhas ações</h4>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+              <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+                <div style="margin: 20px"> Selecione a ação:
+<br>
+    
+          {% if informacao3 %}
+           <select required name="selectacao" class="js-example-basic-single" style="width: 100%">
+               <option value=""></option>
+                {% for Acao in informacao3 %}
+                      <option class="work-option" value="{{ Acao.id }}">{{Acao.objetivo}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+      <br>
+      <select required name="selectacao" class="js-example-basic-single" style="width: 200px">
+               <option value=""></option>
+                </select>
+          <p>Sem ações cadastradas para seu usuário.</p>
+          <p>Por favor, crie uma  nova ação e vincule a seu usuário.</p>
+      {% endif %}
+
+      </div>
+                <div style="margin: 20px"> Selecione o status da ação:
+<br>
+           <select required name="selecstatus" class="js-example-basic-single" style="width: 200px">
+               <option value=""></option>
+                      <option value="1">Não iniciada</option>
+                      <option value="2">Em andamento</option>
+                      <option value="3">Concluída</option>
+                </select>
+      <div>
+
+
+      </div>
+        </div>
+        <div class="modal-footer">
+          <input style="color: black" type="submit" value="Atualizar">
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+  </div>
+
+  <!-- Modal4 -->
+  <div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <form method="POST" action="/reuniao/atualizar_reuniao_controller">
+          {% csrf_token %}
+        <div class="modal-header">
+           <h4><i class="fa fa-edit"></i> Atualizar reunião</h4>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+               <div style="width:250px;">
+  Titulo da reunião:<br>
+  <textarea style="width: 300px" required="" type="text" name="tituloreuniao" id="myTextarea">{{ informacao.titulo }}</textarea>
+  <br><br>
+  Assunto da reunião:<br>
+  <textarea style="width: 300px" type="text" name="assuntoreuniao" id="myTextarea ">{{ informacao.assunto }}</textarea>
+  <br><br>
+  Pauta da reunião:<br>
+  <textarea style="width: 300px" type="text" name="pautareuniao" id="myTextarea ">{{ informacao.pauta }}</textarea>
+  </div>
+  <br>
+  <div style="width:250px; float: left;">
+    Data da reunião:<br>
+    <input required="" type="date" name="datareuniao" value="{{informacao.data|date:'Y-m-d'}}" id="userdate" >
+<br>
+<br>
+</div>
+<div style=" float: left;">
+  Hora da reunião: 
+    <br>
+   <input type="time" name="timereuniao" value="{{informacao.data|time:'H:i'}}" required="" >
+  </div>
+  <br>
+    <div style="clear:left"> Frequencia da reunião:
+<br>
+    
+          {% if lista5 %}
+           <select required name="selecttipo_r" class="js-example-basic-single" style="width: 200px">
+               <option value="" ></option>
+                {% for Tipo_r in lista5 %}
+                      <option value="{{ Tipo_r.id }}" {% if Tipo_r.id == informacao.tipo_reuniao.id %} selected{% endif %}>{{Tipo_r.tipo}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>Sem tipo.</p>
+      {% endif %}
+
+        </div>
+        <br>
+            <div> Status da reunião:
+<br>
+    
+          {% if lista6 %}
+           <select required name="selectstatus_r" class="js-example-basic-single" style="width: 200px">
+               <option value=""></option>
+                {% for Status_r in lista6 %}
+                      <option value="{{ Status_r.id }}" {% if Status_r.id == informacao.status_r.id %} selected{% endif %}>{{Status_r.status_r}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>Sem status.</p>
+      {% endif %}
+      
+        </div>
+
+        <div class="modal-footer">
+          <input style="color: black" type="submit" value="Atualizar">
+        </div>
+      </form>
+      </div></div>
+      
+    </div>
+  </div>
+  </div>  
+      <!-- Modal6 -->
+  <div class="modal fade" id="myModal6" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4><i class="fa fa-plus"></i> Adicionar Tópico</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div>
+  <form style="margin-left:20px; " method="POST" action="/reuniao/adicionar_planoacao_controller">
+    {%csrf_token%}
+  <div style="width:250px;">
+  Denominação do tópico:<br>
+  <textarea style="width: 300px" required="" type="text" name="planoacao" value=" "></textarea>
+  </div>
+        <div class="modal-footer">
+             <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+          <input style="color: black" type="submit" value="Adicionar">
+        </div>
+        </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- Modal2 -->
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4><i class="fa fa-calendar""></i> Adicionar ação</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div>
+  <form style="margin-left:20px; " method="POST" action="/reuniao/nova_acao_controller">
+    {%csrf_token%}
+  <div>
+    <div> Selecione o tópico da ação:
+ <div>
+           <select required name="selectplanoacao" class="js-example-basic-single" style="width: 300px">
+               <option value=""></option>
+                {% for Planoacao in informacao5 %}
+                      <option value="{{ Planoacao.id }}">{{Planoacao.nome}}</option>
+                 {% endfor %}
+                </select>
+        </div>
+      </div>
+  </div>
+  <div style="width:250px;margin-top: 5px">
+  Objetivo da ação:<br>
+  <textarea placeholder="O quê?" style="width: 300px" required="" type="text" name="objetivoacao" value=" "></textarea>
+  </div>
+  <div style="margin-top: 5px">
+  Motivo da ação (opcional):<br>
+  <textarea placeholder="Por quê?" style="width: 300px" type="text" name="motivoacao" value=" "></textarea>
+  </div>
+    <div style="margin-top: 5px"> Selecione o responsável pela ação:
+ <div>
+           <select required name="selectresponsavel" class="js-example-basic-single" style="width: 300px">
+               <option value="">Quem?</option>
+               <optgroup label="Dirigentes">
+                {% for Acesso_r in lista7 %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                <optgroup label="Membros">
+                {% for Acesso_r in lista %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                </select>
+        </div>
+      </div>
+      <div style="margin-top: 10px">
+  Custo da ação (opcional):<br>
+  <textarea placeholder="Qual o custo?" style="width: 300px" type="text" name="custoacao" value=" "></textarea>
+  </div>
+        <div style="margin-top: 5px">
+  Atividades da ação (opcional):<br>
+  <textarea placeholder="Como será realizado?" style="width: 300px" type="text" name="atividadeacao" value=" "></textarea>
+  </div>
+
+  <div style="width:250px; margin-top: 5px">
+    Início previsto (De quando?):<br>
+    <input required="" type="date" name="iniprevisto" value="{{now|date:'Y-m-d'}}" id="userdate" >
+    <input hidden="" type="time" name="timeiniprevisto" value="01:00" required="" >
+  </div>
+
+  <div style="width:250px; margin-top: 10px">
+    Prazo de entrega (Até quando?):<br>
+    <input required="" type="date" name="prazoacao" value="" id="userdate" >
+    <input hidden="" type="time" name="timeprazo" value="23:59" required="" >
+  </div>
+<div style="width:250px; margin-top: 10px"></div>
+  <div style="width:250px;">
+    <div> Área:
+<br>
+    
+          {% if lista3 %}
+           <select required name="selectarea" class="js-example-basic-single" style="width: 300px">
+               <option value="">Departamento responsável</option>
+                {% for Area in lista3 %}
+                      <option value="{{ Area.id }}">{{Area.nome_area}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>No polls are available.</p>
+      {% endif %}
+
+        
+
+      </div>
+</div>
+<div style="clear:left;"></div>
+      
+        </div>
+        <div class="modal-footer">
+             <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+          <input style="color: black" type="submit" value="Adicionar">
+        </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+ <!-- Modal5 -->
+  <div class="modal fade" id="myModal5" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal5 content-->
+      <div class="modal-content">
+        <div class="modal-header">
+           <h4><i class="fa fa-id-card-o"></i> Gerenciar participantes</h4>
+
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h4>Editar posição do membro</h4>
+                 <form method="POST" action="/reuniao/editar_participante_controller">
+          {% csrf_token %}
+              <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+                <div style="margin: 20px"> Selecione o participante:
+<br>
+    
+<select required name="selectparticipante" class="js-example-basic-single" style="width: 200px">
+               <option value="">Nenhum</option>
+               <optgroup label="Dirigentes">
+                {% for Acesso_r in lista7 %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                <optgroup label="Membros">
+                {% for Acesso_r in lista %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                 <optgroup label="Observadores">
+                {% for Acesso_r in lista8 %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                </select>
+
+        
+
+      </div>
+                <div style="margin: 20px"> Selecione a nova posição:
+<br>
+    
+          {% if lista9 %}
+           <select required name="selecttipo" class="js-example-basic-single" style="width: 200px">
+               <option value="">Nenhum</option>
+                {% for Tipo_acesso in lista9 %}
+                      <option value="{{ Tipo_acesso.id }}">{{Tipo_acesso.tipo_acesso}}</option>
+                 {% endfor %}
+                </select>
+      {% else %}
+          <p>No polls are available.</p>
+      {% endif %}
+
+        
+
+      </div>
+      <input style="color: black; margin:10px" type="submit" value="Modificar">
+      </form>
+      <h4>Desativar acesso à reunião</h4>
+      <form method="POST" action="/reuniao/remover_participante_controller">
+        {% csrf_token %}
+      <div style="margin: 20px">
+        <input hidden required="" type="text" name="reuniaoid" value="{{ informacao.id }}">
+      <select required name="selectparticipante" class="js-example-basic-single" style="width: 200px">
+               <option value="">Nenhum</option>
+               <optgroup label="Dirigentes">
+                {% for Acesso_r in lista7 %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                <optgroup label="Membros">
+                {% for Acesso_r in lista %}
+                      <option value="{{ Acesso_r.participante.id }}">{{Acesso_r.participante.first_name}} {{Acesso_r.participante.last_name}}</option>
+                 {% endfor %}
+                </select>
+              </div>
+                <div>
+                      <input style="color: black;margin:10px" type="submit" value="Remover">
+                      </div>
+      </form>
+                </div>
+        </div>
+
+
+      
+    </div>
+  </div>
+
+
+  </header>
+
+  <!-- End page content -->
+</div>
+
+<script>
+$(document).ready(function($) {
+    $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+</script>
+
+<script>
+function myFunction() {
+  document.getElementById("myTextarea").value = "Fifth Avenue, New York City";
+}
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<script>
+  $(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
+</script>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+
+</body>
+</html>

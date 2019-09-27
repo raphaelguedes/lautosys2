@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="br">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Stylish Portfolio - Start Bootstrap Template</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="{% static 'magalu/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+  <!-- Custom Fonts -->
+  <link rel="stylesheet" href="{% static 'magalu/vendor/fontawesome-free/css/all.min.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'magalu/vendor/simple-line-icons/css/simple-line-icons.css' %}">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'magalu/css/stylish-portfolio.min.css' %}">
+
+</head>
+
+<body id="page-top">
+
+
+  <!-- Header -->
+  <header class="masthead d-flex" style="background-image: url({% static 'magalu/img/imagem3.jpg' %})">
+    <div class="container text-center my-auto">
+      <img src="{% static 'magalu/img/imagem4.jpg' %}" class="" style="width:100%; max-width: 500px"><br>
+      <a class="btn-xl js-scroll-trigger" href="#about"><img src="{% static 'images/accepted.png' %}" class="" style="width:100%;max-width: 250px;margin-top: 30px" onmouseover="$(this).attr('src','{% static 'images/accepted2.png' %}')"; onmouseout="$(this).attr('src','{% static 'images/accepted.png' %}')"></a> <br>
+
+      <img src="{% static 'magalu/img/imagem5.jpg' %}" class="" style="width:100%; max-width: 200px; margin-top: 40px">
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <!-- About -->
+  <section class="content-section" id="about" style="background-color:#ff8d00">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-2 mx-auto">
+        </div>
+          <div class="col-lg-8 mx-auto">
+          <img src="{% static 'images/magazineluiza2.jpg' %}" class="" style="width:100%; max-width: 500px"><br><br>
+          <a class="btn btn-outline-light btn-lg js-scroll-trigger" href="#services">Meu propósito</a>
+        </div>
+                <div class="col-lg-2 mx-auto">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+      <div class="content-section-heading">
+        <h3 class="text-secondary mb-0">Meu propósito é...</h3>
+        <h2 class="" style="font-size: 40px">"Participar e ser referência nos processos de desenvolvimento tecnológico e de ideias inovadoras no país."</h2>
+      </div>
+      <div class="row" style="margin-top: 50px">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class=" icon-rocket"></i>
+          </span>
+          <h4>
+            <strong>Criar para inovar</strong>
+          </h4>
+          <p class="text-faded mb-0">Desenvolver e utilizar as tecnologias mais atuais para inovar e ser pioneiro no mercado.</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-basket-loaded"></i>
+          </span>
+          <h4>
+            <strong>Inovar para atender</strong>
+          </h4>
+          <p class="text-faded mb-0">Inovação é o caminho para satisfazer, da melhor maneira, as novas necessidades dos clientes.</p>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-pie-chart"></i>
+          </span>
+          <h4>
+            <strong>Analisar para otimizar</strong>
+          </h4>
+          <p class="text-faded mb-0">Examinar dados para acompanhar desempenhos, automatizar procedimentos e otimizar processos.</p>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-size-actual"></i>
+          </span>
+          <h4>
+            <strong>Otimizar para reduzir</strong>
+          </h4>
+          <p class="text-faded mb-0">Fazer mais com menos, para oferecer o melhor produto ao menor preço do mercado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ 
+
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'magalu/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'magalu/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'magalu/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'magalu/js/stylish-portfolio.min.js' %}"></script>
+
+</body>
+
+</html>

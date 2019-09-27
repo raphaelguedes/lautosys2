@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'auto Cargo</title>
+<link rel="shortcut icon" href="{% static 'favicon/favicon-16x16.png' %}"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Gugi' rel='stylesheet'>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-yellow w3-large" style="z-index:4">
+  <span class="w3-bar-item w3-right " style="font-family: 'arial';" > L'auto Cargo</span>
+  <!-- fa fa-user-secret   -->
+</div>
+
+
+
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:280px;margin-top:43px;margin-right:30px">
+
+  <!-- Header -->
+
+<header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-paperclip"></i> Cadastro de dados do usuário</b></h5>
+    <p>Bem vindo(a) ao sistema inteligente da L'auto Cargo.</p>
+    <p>Por favor, caso seja sua primeira vez no sistema, complete os dados do formulario e envie.</p>
+    <p>Caso não seja, por favor atualize os dados pendentes.</p>
+  </header>
+{% if informacao %}
+ {% for User2 in informacao %}
+<form style="margin-left:20px;margin-top:10px;" method="POST" action="/lauto/alterar_usuario_controller">
+    {%csrf_token%}
+  Primeiro nome:<br>
+  <input required="" type="text" name="nome" value="{{request.user.first_name}}" >
+  <br>
+  Último nome:<br>
+  <input required="" type="text" name="sobrenome" value="{{request.user.last_name}}">
+  <br>
+   CPF:<br>
+  <input required="" type="text" name="cpf" value="{{User2.cpf}}" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)" >
+  <br>
+    Telefone (opcional):<br>
+  <input  type="text" name="telefone1" value="
+{% if User2.telefone_1 != Null %}
+{{User2.telefone_1}}{% endif %}" maxlength="14">
+  <br>
+    Celular (opcional):<br>
+  <input  type="text" name="telefone2" value="
+{% if User2.telefone_2 != Null %}
+{{User2.telefone_2}}{% endif %}" maxlength="14">
+  <br>
+    Data de nascimento:<br>
+  <input required=""  type="date" name="datan" value="{{User2.datan|date:'Y-m-d'}}">
+  <br>
+<br>
+    <input type="submit" value="Enviar">
+</form> 
+{% endfor %}
+{% else %}
+<form style="margin-left:20px;margin-top:10px;" method="POST" action="/lauto/alterar_usuario_controller">
+    {%csrf_token%}
+  Primeiro nome:<br>
+  <input required="" type="text" name="nome" value="" >
+  <br>
+  Último nome:<br>
+  <input required="" type="text" name="sobrenome" value="">
+  <br>
+   CPF:<br>
+  <input required="" type="text" name="cpf" value="" maxlength="14" OnKeyPress="formatar('###.###.###-##', this)" >
+  <br>
+    Telefone (opcional):<br>
+  <input  type="text" name="telefone1" value="" maxlength="14">
+  <br>
+    Celular (opcional):<br>
+  <input  type="text" name="telefone2" value="" maxlength="14">
+  <br>
+    Data de nascimento:<br>
+  <input required="" type="date" name="datan" value="">
+  <br>
+<br>
+    <input type="submit" value="Enviar">
+</form> 
+{% endif %}
+
+
+  <!-- End page content -->
+</div>
+
+<script>
+function formatar(mascara, documento){
+  var i = documento.value.length;
+  var saida = mascara.substring(0,1);
+  var texto = mascara.substring(i)
+  
+  if (texto.substring(0,1) != saida){
+            documento.value += texto.substring(0,1);
+  }
+  
+}
+</script>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>

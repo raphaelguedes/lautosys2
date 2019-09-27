@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'auto Cargo</title>
+<link rel="shortcut icon" href="{% static 'favicon/favicon-16x16.png' %}"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Gugi' rel='stylesheet'>
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #e6e6e6;
+  	background-size: cover;
+}
+
+h1 {
+	font-size: 4em;
+	font-family: 'Gugi'
+}
+
+h4 {
+	margin: 10px 0 -10px 0;
+	color: black;
+}
+
+form {
+	border: 0px solid #f1f1f1;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #264f9b;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
+
+
+.container {
+    padding: 16px;
+
+  /*height: 200px;*/
+  
+
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+</style>
+</head>
+<!-- <body class="w3-black"> -->
+
+<body>
+
+<!-- style="background: url('https://static.fjcdn.com/large/pictures/40/b6/40b62b_601429.jpg');" -->
+<div class="w3-container" >
+</div>
+
+<div class="w3-row" style="margin-top: 3em; ">
+<div class="w3-third w3-container">
+</div>
+
+
+<div class="w3-third w3-container" style="border:1px solid #ccc; background-color: white;" >
+      <div>
+        <center>
+          <img src="{% static 'images/logolauto.png' %}" class="" style="max-width:250px;margin-top:30px;" alt="FOTO_CV">
+    <br>
+          <p style="font-family:Arial;">Plataforma inteligente L'auto Cargo</p>
+      </center>
+      </div>
+<br>
+	<h4 >Digite seu usuário e senha</h4>
+
+<form action="/lauto/login_controller"  method="POST">
+ {%csrf_token%}
+  <div class="imgcontainer">
+  </div>
+
+  <div class="container">
+    <label for="username" style="color: black;"><b>Usuário</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required style="border-left: 2px solid #264f9b ">
+
+    <label for="password" style="color: black;"><b>Senha</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required style="border-left: 2px solid #264f9b">
+        
+    <button type="submit" >Login</button>
+
+  </div>
+
+
+    <span  style="color: black;"><a href="reset-password/">Esqueceu a senha?</a></span>
+    <br>
+    <span  style="color: black;"><a href="novo_usuario">Novo usuário</a></span>
+    <br>
+    <span  style="color: black;"><a href="/admin" class="fa fa-unlock-alt" style="font-size:10px;color:black"></a></span>
+  </div>
+</form>
+</div>
+<div class="w3-third w3-container">
+</div>
+</div>
+
+
+
+<!--<div style="background: #12e241; width: 100px; height: 100px; position: absolute; left: 50%; top: 50%; margin-left: -50px; margin-top: -50px;"></div> -->
+
+</body>
+</html>

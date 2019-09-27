@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'auto Cargo</title>
+<link rel="shortcut icon" href="{% static 'favicon/favicon-16x16.png' %}"/>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Gugi' rel='stylesheet'>
+
+
+
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+.modulos {
+  float:left;
+  width:20%;
+  text-align: left;
+}
+.slide1 {
+  float:left;
+  width:80%;
+ /* max-width:800px; */
+}
+.div1 {
+	padding: 16px;
+
+}
+
+@media only screen and (max-width:700px) {
+  /* For mobile phones: */
+   .div1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0px;
+    }
+  .slide1 {
+  width:100%;
+  order: 1;
+  margin-bottom: 100px;
+}
+  .modulos {
+    width:100%;
+    text-align: center;
+    order: 2
+  }
+}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-yellow w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right " style="font-family: 'arial';" > L'auto Cargo</span>
+  <!-- fa fa-user-secret   -->
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar">
+<div style="width:250px;">
+  <center>
+      <img src="{% static 'images/logolauto.png' %}" class="" style="width:150px;margin-top:20px;" alt="FOTO_CV">
+  </center>
+</div>
+<div style="width:250px;padding-top:10px">
+  <center>
+    <span>Welcome, <strong>{{request.user.username}}</strong></span><br>
+  </center>
+</div>
+<div style="width:250px;padding-top:3px">
+  <center>
+  <a href="usuario" class="w3-bar-item w3-button "><i class="fa fa-user-circle"></i></a>
+  <a href="logout_controller" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i></a>
+  </center>
+</div>
+<hr>
+    <h5>Menu</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="/lauto" class="w3-bar-item w3-button w3-padding w3-yellow" style="text-decoration-line: none;"><i class=" fa fa-home"></i>  Home</a> 
+        <a href="/lauto/institucional" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none;"><i class="  fa fa-building"></i>  Institucional</a> 
+
+
+    <a data-toggle="collapse" data-target="#demo" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><i class=" fa fa-bookmark"></i>  Reunião <i class="fa fa-angle-down" style="float: right;"></i></a>
+            <div id="demo" class="collapse">  
+            <a href="/reuniao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><div style="margin-left: 10px">Minhas reuniões</div> </a>  
+            <a href="/reuniao/acao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><div style="margin-left: 10px">Minhas ações</div> </a> 
+            <a href="/reuniao/faq_reuniao" class="w3-bar-item w3-button w3-padding " style="text-decoration-line: none;"><div style="margin-left: 10px">FAQ</div> </a> 
+            </div>
+     <a href="/ead" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none;"><i class="fa fa-institution"></i> Universilauto</a> 
+    <a href="http://201.20.83.85:83/HELPDESK/index.php" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none;"><i class="fa fa-bullhorn"></i>  Helpdesk</a>
+
+<br><br>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="" style="margin: 0px">
+
+<div style="margin-top: 15px" class="div1">
+
+        <div class="panel panel-default modulos">
+      <a data-toggle="collapse" href="#collapse1" style="color: black;text-decoration-line: none"><div class="card-header"><b>Módulos</b>
+               </div></a>
+
+      <div id="collapse1" class="div1 collapse in panel-body" style="padding: 0px">
+        <a href="CEP" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-archive"></i> CEP</a> 
+        <a href="CIL" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-truck"></i> CIL</a> 
+        <a href="comercial" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class="   fa fa-certificate"></i> Comercial</a>
+        <a href="controladoria" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-line-chart"></i> Controladoria</a>
+        <a href="financeiro" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-dollar"></i> Finaceiro</a> 
+        <a href="gerencia" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class="   fa fa-star"></i> Gerência</a>
+        <a href="operacao" class="w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-road"></i> Operação</a>
+        <a href="qualidade" class=" w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-thumbs-o-up"></i> Qualidade</a> 
+        <a href="RH" class=" w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-child"></i> RH</a> 
+        <a href="suprimentos" class=" w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-dropbox"></i> Suprimentos</a> 
+        <a href="TI" class=" w3-bar-item w3-button w3-padding" style="text-decoration-line: none; width: 100%; text-align: left"><i class=" fa fa-usb"></i> TI</a> 
+      </div>
+    </div>
+
+<div class="slide1" style="margin: 0px">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner " style="width: 100%;max-height: 434px;">
+      <div class="item active">
+        <img src="{% static 'images/teste1.jpg' %}" alt="Los Angeles" style="width:100%; ">
+      </div>
+
+      <div class="item">
+        <img src="{% static 'images/teste2.png' %}" alt="Chicago" style="width:100%;">
+      </div>
+    
+      <div class="item">
+        <img src="{% static 'images/teste3.png' %}" alt="New york" style="width:100%;">
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
+</div>
+  </header>
+
+  <!-- End page content -->
+</div>
+
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
